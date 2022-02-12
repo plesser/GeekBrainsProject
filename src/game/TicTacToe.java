@@ -53,7 +53,7 @@ public class TicTacToe {
             }
 
 
-            /*
+
             aiTurn();
             printGameFields();
             if (checkWin(DOT_AI)){
@@ -64,7 +64,7 @@ public class TicTacToe {
                 System.out.println("Свободные поля закончились, ничья!");
                 break;
             }
-            */
+
         }
 
     }
@@ -93,11 +93,12 @@ public class TicTacToe {
         // проверка по диагоналям право вверх - лево низ
         int x = -1;
         int y = -1;
+
         if (currentX > currentY){
             y = 1;
             x = currentX - currentY + 1;
         }
-        if (currentY > currentX){
+        if (currentX < currentY){
             x = 1;
             y = currentY - currentX + 1;
         }
@@ -114,17 +115,59 @@ public class TicTacToe {
         for (int i=0; i < cntStep; i++){
             if (field[y - 1 + i][x - 1 + i] == dot){
                 cntX++;
+            } else {
+                cntX = 0;
             }
         }
         if (cntX == win){
             return true;
         }
 
-        // проверка по диагоналям право низ - лево вверх
-        x = -1;
-        y = -1;
+        cntX = 0;
+        cntY = 0;
 
+        // верхний треугольник
+        if (currentY  < size - currentX + 1){
+            //System.out.println("up");
+            x = 1;
+            y = currentY + currentX - 1;
+        }
+        // нижний треуголник
+        if (currentY > size - currentX + 1){
+            //System.out.println("down");
+            x = currentX - (size - currentY);
+            y = size;
+        }
 
+        if (currentY == size - currentX + 1){
+            //System.out.println("equals");
+            x = 1;
+            y = size;
+        }
+
+        // не работает, мозги уже не варят почему
+        // сделал в лоб
+        cntStep = Math.min(x, size - y);
+        //System.out.println(x + " " + y + " " + cntStep);
+
+        cntX = 0;
+
+        for (int i = 0; i < size; i++){
+            //System.out.println((x + i - 1) + " " + (y - i - 1) + " " + dot);
+            if (x + i - 1 >= size || y - i - 1 < 0){
+                break;
+            }
+            if (field[x + i - 1][y - i - 1] == dot){
+                cntX++;
+            } else {
+                cntX = 0;
+            }
+        }
+        //System.out.println(cntX);
+
+        if (cntX == win){
+            return true;
+        }
 
         return false;
     }
