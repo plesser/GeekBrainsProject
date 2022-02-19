@@ -33,4 +33,19 @@ public class Sorts {
 
 
     }
+
+    public static void sortChoiseMax(List<Notebook> notebooks) {
+
+        for (int i=0; i < notebooks.size(); i++){
+            for (int j = i + 1; j < notebooks.size(); j++){
+                if (!notebooks.get(i).compare(notebooks.get(j))){
+                    Notebook temp = notebooks.get(j);
+                    notebooks.set(j, notebooks.get(i));
+                    notebooks.set(i, temp);
+                }
+            }
+        }
+
+
+    }
 }

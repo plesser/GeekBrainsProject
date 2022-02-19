@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class Process {
     public static void main(String[] args) {
-        int size = 10000;
+        int size = 10;
 
         List<Notebook> notebooks = new ArrayList<>();
         for (int i=0; i<size; i++){
@@ -17,16 +17,16 @@ public class Process {
 
         //System.out.println("--------------------------------------------------");
         long begin = new Date().getTime();
-        Sorts.sortChoise(notebooks);
+        Sorts.sortChoiseMax(notebooks);
         long end = new Date().getTime();
         System.out.println("Time: " + (end - begin));
 
 
-        /*
+
         for (Notebook notebook : notebooks){
             System.out.println(notebook);
         }
-         */
+
 
     }
 
