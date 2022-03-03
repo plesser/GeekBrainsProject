@@ -13,4 +13,12 @@ public class Item {
         this.task = task;
         this.val = val;
     }
+
+    public Task getTask() {
+        return task;
+    }
+
+    public int getVal() {
+        return val;
+    }
 }
