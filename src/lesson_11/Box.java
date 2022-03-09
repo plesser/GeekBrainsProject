@@ -68,4 +68,6 @@ public class Box {
     public ArrayList<Fruit> getFruits() {
         return fruits;
     }
+
+
 }
