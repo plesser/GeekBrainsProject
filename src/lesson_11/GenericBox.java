@@ -1,6 +1,8 @@
 package lesson_11;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.ArrayList;
 
 public class GenericBox<E extends Fruit> {
     private ArrayList<E> fruits;
