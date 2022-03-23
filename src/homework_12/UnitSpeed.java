@@ -7,7 +7,7 @@ public class UnitSpeed {
     static final int HALF = SIZE / 2;
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         float[] arr = new float[SIZE];
 
         for (int i=0; i < SIZE; i++){
@@ -17,7 +17,7 @@ public class UnitSpeed {
         // ну поехали считать
         long start = System.currentTimeMillis();
 
-        Calc calc = new Calc(arr);
+        Calc calc = new Calc(arr, 0);
         calc.run();;
         arr = calc.getData();
         long finish = System.currentTimeMillis();
@@ -43,11 +43,18 @@ public class UnitSpeed {
         //System.out.println(Arrays.toString(arr_1));
         //System.out.println(Arrays.toString(arr_2));
 
-        Calc calc_1 = new Calc(arr_1);
-        Calc calc_2 = new Calc(arr_2);
+        Calc calc_1 = new Calc(arr_1, 0);
+        Calc calc_2 = new Calc(arr_2, HALF);
 
-        calc_1.run();
-        calc_2.run();
+        Thread t1 = new Thread(calc_1);
+        Thread t2 = new Thread(calc_2);
+
+        t1.start();
+        t2.start();
+
+
+        t1.join();
+        t2.join();
 
         arr_1 = calc_1.getData();
         arr_2 = calc_2.getData();
@@ -76,9 +83,11 @@ public class UnitSpeed {
     static class Calc implements Runnable{
 
         float[] data;
+        int shift;
 
-        public Calc(float[] data) {
+        public Calc(float[] data, int shift) {
             this.data = data;
+            this.shift = shift;
         }
 
         public float[] getData() {
@@ -88,7 +97,7 @@ public class UnitSpeed {
         @Override
         public void run() {
             for (int i =0; i < data.length; i++){
-                data[i] = (float) (data[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i /5) * Math.cos(0.4f + i / 2));
+                data[i] = (float) (data[i] * Math.sin(0.2f + (i + shift) / 5) * Math.cos(0.2f + (i + shift)  /5) * Math.cos(0.4f + (i + shift) / 2));
             }
         }
 
